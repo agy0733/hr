@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כולל יחי ראובן</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+        }
+
+        .header-text h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .header-text .subtitle {
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .contact-email {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Statistics */
+        .stats {
+            background: white;
+            padding: 60px 0;
+            margin-top: -40px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 60px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Flip Cards */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 250px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flip-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .flip-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .gallery-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .gallery-slide {
+            display: none;
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .gallery-slide.active {
+            display: block;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Donation Button */
+        .donation-button {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .donation-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <!-- החלף את src עם הלוגו שלך -->
+                    <img src="images/logo.png" alt="לוגו הכולל" class="logo">
+                    <div class="header-text">
+                        <h1>יחי ראובן</h1>
+                        <div class="subtitle">בית מדרש ברמה גבוהה מיסודו של הגאון הרב זאב (וואווע) זילברשטיין שליט""א</div>
+                    </div>
+                </div>
+                <!-- החלף את כתובת המייל שלך כאן -->
+                <a href="mailto:yrm088026663@gmail.com?subject=פנייה מהאתר - כולל יחי ראובן&body=שלום רב,%0A%0Aפניתי אליכם דרך האתר..." class="contact-email">
+                    📧 צור קשר
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>בית מדרש ברמה יוצאת דופן</h2>
+            <p>כולל המכשיר אברכי עילוי ברמה גבוהה במיוחד, עם דגש על ידיעת התורה ללא פרשות בהבנה עמוקה ויסודית</p>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">הכולל במספרים</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">250</div>
+                    <div class="stat-label">אברכים לומדים</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">יודעים מעל 1000 דף גמרא בעל פה</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">יודעים מעל 700 דף גמרא בעל פה</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60</div>
+                    <div class="stat-label">יודעים מעל 300 דף גמרא בעל פה</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">מגמות לימוד שונות</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs -->
+    <section class="programs">
+        <div class="container">
+            <h2 class="section-title">מגמות הלימוד שלנו</h2>
+            <div class="programs-grid">
+                <!-- כרטיס 1 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3>סדר מועד</h3>
+                                <p>לימוד מקיף ויסודי</p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>סדר מועד</h3>
+                                <p>מגמה המתמחה בלימוד של כל סדר מועד עם דגש על זכירה ובקיאות רחבה.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 2 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3>מגמת סדר נשים</h3>
+                                <p>לימוד מעמיק</p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>מגמת סדר נשים</h3>
+                                <p>מגמה המתמקדת בלימוד עמוק ומעמיק של הסוגיות בסדר נשים, במגמה זו לומדים אברכים שיודעים כבר למעלה מ-300 דף גמרא בעל פה.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 3 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3>מגמת הלכה</h3>
+                                <p>הלכה למעשה</p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>מגמת הלכה למעשה</h3>
+                                <p>מגמה המתמחה בלימוד הלכה למעשה, עיון בפוסקים מכל הדורות ובירור הלכות לחיי היום יום. המגמה מכשירה מורי הוראה ופוסקים לעתיד.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 4 - הוסף כרטיסים נוספים לפי הצורך -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3>מגמת קדשים</h3>
+                                <p>געגועים עזים</p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>מגמת לימוד סדר קדשים</h3>
+                                <p>לומדים בחברותא שעות ארוכות ונכנסים בתוככי הסוגיות ללימוד סדר הקרבנות מתוך געגועים לבניין בית המקדש במהרה בימינו , אמן.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Programs -->
+    <section class="programs">
+        <div class="container">
+            <h2 class="section-title">מהנעשה בהיכל הכולל</h2>
+            <div class="programs-grid">
+                <!-- כרטיס 1 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3>יום שלישי פרשת דברים</h3>
+                                <p>סיום מסכת בבא קמא</p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3>וכמובן מבחן מקיף אצל הרב משה צאלער שליט"א</h3>
+                                <p>זוהי המומחיות שלנו לומדים ויודעים, ואפשר גם לבחון אותנו.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 2 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 3 - החלף את התוכן -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כרטיס 4 - הוסף כרטיסים נוספים לפי הצורך -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- כרטיס 4 - הוסף כרטיסים נוספים לפי הצורך -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- כרטיס 4 - הוסף כרטיסים נוספים לפי הצורך -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div>
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title">תמונות מהכולל</h2>
+            <div class="gallery-slider">
+                <!-- החלף את התמונות שלך כאן -->
+                <img src="images/תמונה1.jpg" class="gallery-slide active" alt="תמונה מהכולל">
+                <img src="images/תמונה2.jpg" class="gallery-slide" alt="תמונה מהכולל">
+                <img src="images/תמונה3.jpg" class="gallery-slide" alt="תמונה מהכולל">
+               
+                <div class="gallery-nav">
+                    <div class="gallery-dot active" onclick="currentSlide(1)"></div>
+                    <div class="gallery-dot" onclick="currentSlide(2)"></div>
+                    <div class="gallery-dot" onclick="currentSlide(3)"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Button -->
+    <button class="donation-button" onclick="openDonationModal()" title="תרומה">
+        💝
+    </button>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonationModal()">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">תרומה לכולל</h2>
+            <form id="donationForm">
+                <div class="form-group">
+                    <label for="donorName">שם מלא *</label>
+                    <input type="text" id="donorName" name="donorName" required>
+                </div>
+               
+                <div class="form-group">
+                    <label for="donorEmail">כתובת מייל *</label>
+                    <input type="email" id="donorEmail" name="donorEmail" required>
+                </div>
+               
+                <div class="form-group">
+                    <label for="donorPhone">טלפון</label>
+                    <input type="tel" id="donorPhone" name="donorPhone">
+                </div>
+               
+                <div class="form-group">
+                    <label for="donationAmount">סכום התרומה *</label>
+                    <select id="donationAmount" name="donationAmount" required>
+                        <option value="">בחר סכום</option>
+                        <option value="100">100 ₪</option>
+                        <option value="250">250 ₪</option>
+                        <option value="500">500 ₪</option>
+                        <option value="1000">1,000 ₪</option>
+                        <option value="custom">סכום אחר</option>
+                    </select>
+                </div>
+               
+                <div class="form-group" id="customAmountGroup" style="display: none;">
+                    <label for="customAmount">סכום מותאם אישית (₪)</label>
+                    <input type="number" id="customAmount" name="customAmount" min="1">
+                </div>
+               
+                <div class="form-group">
+                    <label for="cardNumber">מספר כרטיס אשראי *</label>
+                    <input type="text" id="cardNumber" name="cardNumber" placeholder="0000-0000-0000-0000" maxlength="19" required>
+                </div>
+               
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label for="expiryDate">תוקף *</label>
+                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV *</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label for="donationPurpose">מטרת התרומה</label>
+                    <select id="donationPurpose" name="donationPurpose">
+                        <option value="general">תרומה כללית</option>
+                        <option value="scholarships">מלגות לאברכים</option>
+                        <option value="books">רכישת ספרים</option>
+                        <option value="building">תחזוקת הבניין</option>
+                        <option value="events">פעילויות מיוחדות</option>
+                    </select>
+                </div>
+               
+                <button type="submit" class="submit-btn">💳 בצע תרומה</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 כולל [שם הכולל] - כל הזכויות שמורות</p>
+            <p>בניית האתר: מערכת תרומות מתקדמת</p>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery functionality
+        let slideIndex = 1;
+       
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+       
+        function showSlide(n) {
+            let slides = document.getElementsByClassName("gallery-slide");
+            let dots = document.getElementsByClassName("gallery-dot");
+           
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+           
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+           
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+           
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].classList.add("active");
+        }
+       
+        // Auto slide
+        setInterval(function() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }, 5000);
+       
+        // Modal functionality
+        function openDonationModal() {
+            document.getElementById('donationModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+       
+        function closeDonationModal() {
+            document.getElementById('donationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+       
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            let modal = document.getElementById('donationModal');
+            if (event.target == modal) {
+                closeDonationModal();
+            }
+        }
+       
+        // Custom amount functionality
+        document.getElementById('donationAmount').addEventListener('change', function() {
+            let customGroup = document.getElementById('customAmountGroup');
+            if (this.value === 'custom') {
+                customGroup.style.display = 'block';
+                document.getElementById('customAmount').required = true;
+            } else {
+                customGroup.style.display = 'none';
+                document.getElementById('customAmount').required = false;
+            }
+        });
+       
+        // Format card number
+        document.getElementById('cardNumber').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1-');
+            this.value = value;
+        });
+       
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            this.value = value;
+        });
+       
+        // CVV numbers only
+        document.getElementById('cvv').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+       
+        // Form submission
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+           
+            // איסוף נתוני הטופס
+            let amount = document.getElementById('donationAmount').value;
+            if (amount === 'custom') {
+                amount = document.getElementById('customAmount').value;
+            }
+           
+            let formData = {
+                name: document.getElementById('donorName').value,
+                email: document.getElementById('donorEmail').value,
+                phone: document.getElementById('donorPhone').value,
+                amount: amount,
+                cardNumber: document.getElementById('cardNumber').value,
+                expiryDate: document.getElementById('expiryDate').value,
+                cvv: document.getElementById('cvv').value,
+                purpose: document.getElementById('donationPurpose').value,
+                timestamp: new Date().toISOString()
+            };
+           
+            // הצגת הודעה זמנית (החלף בחיבור אמיתי לחברת סליקה)
+            alert('תודה על התרומה! בקרוב תוכל לחבר את המערכת לחברת סליקה.');
+           
+            // כאן תוסיף את הקוד לחברת הסליקה שלך:
+            // לדוגמה: Tranzila, CardCom, או כל חברה אחרת
+           
+            /* דוגמה לחיבור חברת סליקה (יש להתאים לפי החברה שלך):
+           
+            // עבור Tranzila:
+            // TranzillaAPI.charge({
+            //     amount: formData.amount,
+            //     cardNumber: formData.cardNumber,
+            //     expiryDate: formData.expiryDate,
+            //     cvv: formData.cvv,
+            //     // פרמטרים נוספים...
+            // }).then(response => {
+            //     if (response.success) {
+            //         sendConfirmationEmail(formData);
+            //         showSuccessMessage();
+            //     } else {
+            //         showErrorMessage(response.error);
+            //     }
+            // });
+           
+            */
+           
+            // סגירת המודל
+            closeDonationModal();
+           
+            // איפוס הטופס
+            this.reset();
+            document.getElementById('customAmountGroup').style.display = 'none';
+           
+            console.log('נתוני התרומה:', formData); // לבדיקה - יש למחוק בגרסת הייצור
+        });
+       
+        // פונקציה לשליחת מייל אוטומטי (דורשת חיבור לשרת)
+        function sendConfirmationEmail(donationData) {
+            // כאן תוסיף קוד לשליחת מייל דרך השרת שלך
+            // לדוגמה באמצעות EmailJS או שרת PHP/Node.js
+           
+            /* דוגמה עם EmailJS:
+            emailjs.send('service_id', 'template_id', {
+                to_email: 'admin@kollel.org.il', // המייל שלך
+                donor_name: donationData.name,
+                donor_email: donationData.email,
+                amount: donationData.amount,
+                purpose: donationData.purpose,
+                timestamp: donationData.timestamp
+            });
+            */
+        }
+    </script>
+</body>
+</html> 
